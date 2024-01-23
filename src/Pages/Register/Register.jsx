@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
   const { register, handleSubmit } = useForm();
-  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const { createUser } = useAuth();
 
   const onSubmit = (data) => {
     const userInfo = {
@@ -15,22 +14,8 @@ const Register = () => {
       role: data.role,
       password: data.password,
     };
-
-    axiosPublic
-      .post("/api/v1/create-user", userInfo)
-      .then((res) => {
-        if (res.data.insertedId) {
-          Swal.fire({
-            title: "Done!",
-            text: "New user is created!",
-            icon: "success",
-          });
-        }
-        navigate("/");
-      })
-      .catch((err) => {
-        Swal.fire("Error!", err.message, "error");
-      });
+    createUser(userInfo);
+    navigate("/");
   };
   return (
     <div>

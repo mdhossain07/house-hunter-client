@@ -1,30 +1,15 @@
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
-  const axiosPublic = useAxiosPublic();
+  const { loginUser } = useAuth();
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    axiosPublic
-      .get(`/api/v1/users?email=${data.email}&pass=${data.password}`)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          Swal.fire({
-            title: "Done!",
-            text: "User Logged In!",
-            icon: "success",
-          });
-        }
-        navigate("/");
-      })
-      .catch(() => {
-        Swal.fire("Error!", "Invalid Login Credentials", "error");
-      });
+    loginUser(data.email, data.password);
+    navigate("/");
   };
   return (
     <>

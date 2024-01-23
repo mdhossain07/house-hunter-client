@@ -1,6 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    logOut();
+    navigate("/login");
+  };
   const navItems = (
     <>
       <li>
@@ -36,16 +44,42 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl">House Hunter</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
-        <div className="navbar-end">
-          <Link className="btn" to="/login">
-            Login
-          </Link>
-        </div>
+        {user.email ? (
+          <div className="navbar-end">
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img referrerPolicy="no-referrer" src={user.photoURL} />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="
+                    z-[1] shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a>{user.displayName}</a>
+                </li>
+                <button onClick={handleLogOut}>
+                  <li>
+                    <a>Logout</a>
+                  </li>
+                </button>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div className="navbar-end">
+            <Link className="btn" to="/login">
+              Login
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
