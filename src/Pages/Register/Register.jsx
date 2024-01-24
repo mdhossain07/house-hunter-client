@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
@@ -13,7 +13,9 @@ const Register = () => {
       email: data.email,
       role: data.role,
       password: data.password,
+      image: data.image,
     };
+
     createUser(userInfo);
     navigate("/");
   };
@@ -65,6 +67,20 @@ const Register = () => {
                   required
                 />
               </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Image URl</span>
+                </label>
+                <input
+                  {...register("image", { required: true })}
+                  type="text"
+                  placeholder="image"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
@@ -79,6 +95,15 @@ const Register = () => {
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Register</button>
+              </div>
+
+              <div className="form-control mt-6">
+                <p className="">
+                  Already Have Account?{" "}
+                  <Link className="text-blue-500 font-medium" to="/login">
+                    Sign in
+                  </Link>
+                </p>
               </div>
             </form>
           </div>

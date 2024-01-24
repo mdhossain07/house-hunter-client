@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+
   const navigate = useNavigate();
 
   const handleLogOut = () => {
@@ -13,6 +14,9 @@ const Navbar = () => {
     <>
       <li>
         <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/houses">Houses</Link>
       </li>
     </>
   );
@@ -54,7 +58,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  <img referrerPolicy="no-referrer" src={user.photoURL} />
+                  <img referrerPolicy="no-referrer" src={user.image} />
                 </div>
               </label>
               <ul
@@ -63,7 +67,10 @@ const Navbar = () => {
                     z-[1] shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <a>{user.displayName}</a>
+                  <a>{user.name}</a>
+                </li>
+                <li>
+                  <Link to="owner/dashboard">Dashboard</Link>
                 </li>
                 <button onClick={handleLogOut}>
                   <li>

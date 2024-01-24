@@ -28,7 +28,7 @@ const HouseList = () => {
           if (res.data.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
-              text: "Your house listing is deleted.",
+              text: "The house listing is removed.",
               icon: "success",
             });
           }

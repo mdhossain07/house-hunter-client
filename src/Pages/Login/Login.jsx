@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
@@ -46,6 +46,15 @@ const Login = () => {
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Login</button>
+              </div>
+
+              <div className="form-control mt-6">
+                <p className="">
+                  Already Have Account?{" "}
+                  <Link className="text-blue-500 font-medium" to="/register">
+                    Register
+                  </Link>
+                </p>
               </div>
             </form>
           </div>

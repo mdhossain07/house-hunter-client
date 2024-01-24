@@ -7,6 +7,7 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
   const axiosPublic = useAxiosPublic();
 
   const createUser = (userInfo) => {
@@ -24,6 +25,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("key", JSON.stringify(userInfo));
 
         setUser(JSON.parse(localStorage.getItem("key")));
+        // setLoading(true);
       })
       .catch((err) => {
         Swal.fire("Error!", err.message, "error");
@@ -44,6 +46,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("key", JSON.stringify(res.data));
 
         setUser(JSON.parse(localStorage.getItem("key")));
+        // setLoading(true);
       })
       .catch(() => {
         Swal.fire("Error!", "Invalid Login Credentials", "error");
@@ -60,7 +63,7 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  const authInfo = { user, createUser, loginUser, logOut };
+  const authInfo = { user, createUser, loginUser, logOut, loading };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
